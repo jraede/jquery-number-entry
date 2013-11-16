@@ -8,15 +8,16 @@ Note that this plugin depends on Tim Down's "Rangy Inputs" jQuery plugin (https:
 # Usage
 
 ## 1) Include jQuery, Rangy Inputs, and the plugin code on your page.
-  
+
+```
   <html>
     <head>
       <script src="/path/to/jquery.js"></script>
       <script src="/path/to/rangyinputs.js"></script>
       <script src="/path/to/numberEntry.js"></script>
-
+```
 ## 2) Now activate the plugin on your input fields.
-
+```
   <script type="text/javascript">
     $(function() {
       $('input.number-entry').numberEntry({
@@ -25,11 +26,11 @@ Note that this plugin depends on Tim Down's "Rangy Inputs" jQuery plugin (https:
       });
     });
   </script>
-  
+```
 And on your page you can have:
-  
+```
   <input type="text" class="number-entry"/>
-
+```
 Then when you type "1234.56" into the field, it will magically change to "1,234.56".
 
 # Customization
