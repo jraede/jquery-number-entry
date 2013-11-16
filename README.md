@@ -30,7 +30,7 @@ If you type "1234.500", you will see "1,234.50", assuming you have the `decimals
   <script type="text/javascript">
     $(function() {
       $('input.number-entry').numberEntry({
-        format:'usa'
+        format:'usa',
         decimalsAllowed:2
       });
     });
