@@ -6,8 +6,11 @@
         decimalsAllowed: 2,
         format: 'usa'
       },
-      mask: function(el) {
+      mask: function(el, retainSelection) {
         var commaVal, cursorDiff, cursorPos, decimalKey, decimalPosition, final, i, key, lengthBeforeDecimal, newVal, numberOfCharactersAddedBeforeCursor, options, pos, split, thousandsKey, val, whole, _i, _ref;
+        if (retainSelection == null) {
+          retainSelection = true;
+        }
         options = el.data('options');
         decimalKey = options.decimalKey;
         thousandsKey = options.thousandsKey;
@@ -53,7 +56,9 @@
         }
         newVal = final;
         el.val(newVal);
-        return el.setSelection(cursorPos + numberOfCharactersAddedBeforeCursor, cursorPos + numberOfCharactersAddedBeforeCursor + cursorDiff);
+        if (retainSelection) {
+          return el.setSelection(cursorPos + numberOfCharactersAddedBeforeCursor, cursorPos + numberOfCharactersAddedBeforeCursor + cursorDiff);
+        }
       }
     };
     return $.fn.numberEntry = function(options) {
@@ -111,14 +116,14 @@
             $(this).val($(this).val().replace(options.regex, ''));
             this.removeBadKeys = false;
           }
-          return $.numberEntry.mask($(this), options);
+          return $.numberEntry.mask($(this));
         });
         $(this).blur(function(e) {
-          return $.numberEntry.mask($(this), options);
+          return $.numberEntry.mask($(this), false);
         });
         return $(this).change(function(e) {
           if (!$(this).is(':focus')) {
-            return $.numberEntry.mask($(this), options);
+            return $.numberEntry.mask($(this));
           }
         });
       });

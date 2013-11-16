@@ -11,7 +11,7 @@
 				decimalsAllowed:2
 				format:'usa'
 
-			mask: (el) ->
+			mask: (el, retainSelection = true) ->
 				options = el.data('options')
 				decimalKey = options.decimalKey
 				thousandsKey = options.thousandsKey
@@ -67,7 +67,9 @@
 				newVal = final
 
 				el.val(newVal)
-				el.setSelection(cursorPos + numberOfCharactersAddedBeforeCursor, cursorPos + numberOfCharactersAddedBeforeCursor + cursorDiff)
+				
+				if retainSelection
+					el.setSelection(cursorPos + numberOfCharactersAddedBeforeCursor, cursorPos + numberOfCharactersAddedBeforeCursor + cursorDiff)
 
 		$.fn.numberEntry = (options) ->
 
@@ -137,17 +139,17 @@
 					if @removeBadKeys
 						$(@).val($(@).val().replace(options.regex, ''))
 						@removeBadKeys = false
-					$.numberEntry.mask($(@), options)
+					$.numberEntry.mask($(@))
 
 				$(@).blur (e) ->
 					# Worst case also do it on blur since they can click, then paste via the edit menu
-					$.numberEntry.mask($(@), options)
+					$.numberEntry.mask($(@), false)
 
 				# It could be changed by another process, so if they're not actively entering anything,
 				# apply the formatting.
 				$(@).change (e) ->
 					if !$(@).is(':focus')
-						$.numberEntry.mask($(@), options)
+						$.numberEntry.mask($(@))
 )(window.jQuery)
 					
 
