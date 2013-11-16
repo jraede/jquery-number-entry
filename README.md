@@ -46,3 +46,12 @@ Then when you type "1234.56" into the field, it will magically change to "1,234.
 
 As of this release the only options are `decimalsAllowed` and `format` (either 'usa' or anything else. If anything else then it will use "," for the decimals separator and "." for the thousands separator.)
 
+Defaults are:
+
+```
+defaults:{
+  format:'usa',
+  decimalsAllowed:2
+}
+```
+
