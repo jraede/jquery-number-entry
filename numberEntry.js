@@ -6,8 +6,9 @@
         decimalsAllowed: 2,
         format: 'usa'
       },
-      mask: function(el, options) {
-        var commaVal, cursorDiff, cursorPos, decimalKey, decimalPosition, final, i, key, lengthBeforeDecimal, newVal, numberOfCharactersAddedBeforeCursor, pos, split, thousandsKey, val, whole, _i, _ref;
+      mask: function(el) {
+        var commaVal, cursorDiff, cursorPos, decimalKey, decimalPosition, final, i, key, lengthBeforeDecimal, newVal, numberOfCharactersAddedBeforeCursor, options, pos, split, thousandsKey, val, whole, _i, _ref;
+        options = el.data('options');
         decimalKey = options.decimalKey;
         thousandsKey = options.thousandsKey;
         cursorPos = el.getSelection().start;
@@ -75,6 +76,7 @@
         if ($(this).val()) {
           $(this).val($.numberFormat.mask($(this), options));
         }
+        $(this).data('options', options);
         $(this).keydown(function(e) {
           var cursorPos, decimalPosition, key, val;
           key = e.charCode || e.keyCode || 0;
@@ -111,8 +113,13 @@
           }
           return $.numberEntry.mask($(this), options);
         });
-        return $(this).blur(function(e) {
+        $(this).blur(function(e) {
           return $.numberEntry.mask($(this), options);
+        });
+        return $(this).change(function(e) {
+          if (!$(this).is(':focus')) {
+            return $.numberEntry.mask($(this), options);
+          }
         });
       });
     };

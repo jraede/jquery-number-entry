@@ -11,7 +11,8 @@
 				decimalsAllowed:2
 				format:'usa'
 
-			mask: (el, options) ->
+			mask: (el) ->
+				options = el.data('options')
 				decimalKey = options.decimalKey
 				thousandsKey = options.thousandsKey
 				
@@ -92,6 +93,8 @@
 
 				if $(@).val()
 					$(@).val($.numberFormat.mask($(@), options))
+
+				$(@).data('options', options)
 				$(@).keydown (e) ->
 
 					key = e.charCode or e.keyCode or 0
@@ -139,6 +142,12 @@
 				$(@).blur (e) ->
 					# Worst case also do it on blur since they can click, then paste via the edit menu
 					$.numberEntry.mask($(@), options)
+
+				# It could be changed by another process, so if they're not actively entering anything,
+				# apply the formatting.
+				$(@).change (e) ->
+					if !$(@).is(':focus')
+						$.numberEntry.mask($(@), options)
 )(window.jQuery)
 					
 
