@@ -16,7 +16,7 @@ If you type "1234.500", you will see "1,234.50", assuming you have the `decimals
 
 # Usage
 
-## 1) Include jQuery, Rangy Inputs, and the plugin code on your page.
+#### 1) Include jQuery, Rangy Inputs, and the plugin code on your page.
 
 ```
   <html>
@@ -25,7 +25,7 @@ If you type "1234.500", you will see "1,234.50", assuming you have the `decimals
       <script src="/path/to/rangyinputs.js"></script>
       <script src="/path/to/numberEntry.js"></script>
 ```
-## 2) Now activate the plugin on your input fields.
+#### 2) Now activate the plugin on your input fields.
 ```
   <script type="text/javascript">
     $(function() {
@@ -42,7 +42,7 @@ And on your page you can have:
 ```
 Then when you type "1234.56" into the field, it will magically change to "1,234.56".
 
-# Customization
+### Customization
 
-As of this release the only options are `decimalsAllowed` and `format` (either 'usa' or anything else. If anything else then it will use "," for the decimals separator and "." for the thousands separator.
+As of this release the only options are `decimalsAllowed` and `format` (either 'usa' or anything else. If anything else then it will use "," for the decimals separator and "." for the thousands separator.)
 
