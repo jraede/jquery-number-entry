@@ -10,6 +10,7 @@
 			defaults:
 				decimalsAllowed:2
 				format:'usa'
+				allowNegative:false
 
 			mask: (el, retainSelection = true) ->
 				options = el.data('options')
@@ -20,8 +21,19 @@
 
 				cursorPos = el.getSelection().start
 				cursorDiff = el.getSelection().end - el.getSelection().start
-				# Strip out commas so we can re-add them
+
 				val = el.val()
+				# Are we negative?
+				isNegative = false
+				if options.allowNegative and val.substr(0, 1) is '-'
+					isNegative = true
+
+				# They could theoretically have a hyphen anywhere but this will strip it out. we just
+				# re-add it to the front at the end.
+				val = val.replace(/\-/g, '')
+
+				# Strip out commas so we can re-add them
+				
 				pos = val.indexOf(thousandsKey)
 				while pos >= 0
 					if pos < cursorPos
@@ -66,6 +78,8 @@
 
 				newVal = final
 
+				if isNegative
+					newVal = '-' + newVal
 				el.val(newVal)
 				
 				if retainSelection
@@ -74,21 +88,30 @@
 		$.fn.numberEntry = (options) ->
 
 			return @each ->
-				options = $.extend($.numberEntry.defaults, options)
+				options = $.extend({}, $.numberEntry.defaults, options)
 
-				# keys to allow: digits, decimal point, arrow keys, tab key, return key,backspace
-				valid_keys = [48,49,50,51,52,53,54,55,56,57,96,97,98,99,100,101,102,103,104,105,110,190, 37,38,39,40,9,8]
+				# keys to allow: digits, decimal point, arrow keys, tab key, return key,backspace. and HYPHEN
+				validKeys = [48,49,50,51,52,53,54,55,56,57,96,97,98,99,100,101,102,103,104,105,110,190, 37,38,39,40,9,8]
+
+				if options.allowNegative
+					validKeys.push(189)
 
 				# Add the valid decimal separator from options
 				if options.format is 'usa'
-					valid_keys.push(110)
-					valid_keys.push(190)
-					options.regex = /[^0-9\.]/g
+					validKeys.push(110)
+					validKeys.push(190)
+					if options.allowNegative
+						options.regex = /[^0-9\.\-]/g
+					else
+						options.regex = /[^0-9\.]/g
 					options.decimalKey = '.'
 					options.thousandsKey = ','
 				else 
-					valid_keys.push(188)
-					options.regex = /[^0-9,]/g
+					validKeys.push(188)
+					if options.allowNegative
+						options.regex = /[^0-9,\-]/g
+					else
+						options.regex = /[^0-9,]/g
 					options.decimalKey = ','
 					options.thousandsKey = '.'
 
@@ -110,7 +133,7 @@
 
 
 					
-					if valid_keys.indexOf(key) < 0
+					if validKeys.indexOf(key) < 0
 						# also allow copy, cut, and paste
 						if e.ctrlKey and ([67,86,88].indexOf(key) >= 0)
 							if key is 86 # we need to parse after pasting

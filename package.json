@@ -1,0 +1,23 @@
+{
+  "name": "jquery-number-entry",
+  "version": "0.1.0",
+  "description": "Number entry plugin for jQuery",
+  "main": "numberEntry.js",
+  "scripts": {
+    "test": "grunt test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com//jraede/jquery-number-entry.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    
+  },
+  "devDependencies": {
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt": "~0.4.2",
+    "grunt-contrib-coffee": "~0.10.1"
+  }
+}

@@ -44,14 +44,15 @@ Then when you type "1234.56" into the field, it will magically change to "1,234.
 
 # Customization
 
-As of this release the only options are `decimalsAllowed` and `format` (either 'usa' or anything else. If anything else then it will use "," for the decimals separator and "." for the thousands separator.)
+As of this release the only options are `allowNegative`, `decimalsAllowed`, `format` (either 'usa' or anything else. If anything else then it will use "," for the decimals separator and "." for the thousands separator.)
 
 Defaults are:
 
 ```
 defaults:{
   format:'usa',
-  decimalsAllowed:2
+  decimalsAllowed:2,
+  allowNegative:false
 }
 ```
 

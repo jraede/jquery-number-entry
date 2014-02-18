@@ -1,0 +1,48 @@
+<html>
+	<head>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="rangyInputs.js"></script>
+		<script src="numberEntry.js"></script>
+
+		<script type="text/javascript">
+			$(function() {
+				$('.default').numberEntry();
+				$('.negative').numberEntry({
+					allowNegative:true
+				});
+
+				$('.decimals').numberEntry({
+					decimalsAllowed:4
+				});
+
+				$('.euro').numberEntry({
+					format:'euro'
+				});
+			});
+		</script>
+		<style type="text/css">
+			input {
+				width:100%;
+				font-size:80px;
+				height:100px;
+				line-height:100px;
+			}
+		</style>
+
+	</head>
+	<body>
+		<h1>Default Options</h1>
+		<input type="text" class="default"/>
+		<hr />
+		<h1>Allow Negative</h1>
+		<input type="text" class="negative"/>
+		<hr />
+		<h1>4 Decimal Places</h1>
+		<input type="text" class="decimals"/>
+		<hr />
+		<h1>European Formatting</h1>
+		<input type="text" class="euro"/>
+		<hr />
+		
+	</body>
+</html>
